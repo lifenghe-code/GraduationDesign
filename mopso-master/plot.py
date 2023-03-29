@@ -24,7 +24,7 @@ class Plot_pareto:
 
     def show(self, in_, fitness_, archive_in, archive_fitness, i):
         # 共3个子图，第1、2/子图绘制输入坐标与适应值关系，第3图展示pareto边界的形成过程
-        fig = plt.figure('第' + str(i + 1) + '次迭代', figsize=(17, 5))
+        fig = plt.figure('第' + str(i + 1) + '次迭代', figsize=(20, 5))
         ax1 = fig.add_subplot(131, projection='3d')
         ax1.set_xlabel('input_x1')
         ax1.set_ylabel('input_x2')

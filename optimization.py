@@ -26,6 +26,7 @@ def positionDeviations(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         H = cal_H(Delta_lsu, Delta_lsh)
         return abs(alpha) + abs(beta) + abs(gamma) + abs(A) + abs(L) + abs(H)
     except:
+        print('该数据无效')
         return 100
 
 
