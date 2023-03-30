@@ -5,6 +5,7 @@ import init
 import update
 import plot
 
+
 class Mopso:
     def __init__(self, particals, w, c1, c2, max_, min_, thresh, mesh_div=10):
         self.w, self.c1, self.c2 = w, c1, c2

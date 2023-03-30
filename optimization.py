@@ -24,10 +24,13 @@ def positionDeviations(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         A = cal_A(Delta_lh, Delta_lv)
         L = cal_L(Delta_lh, Delta_lv)
         H = cal_H(Delta_lsu, Delta_lsh)
-        return abs(alpha+2.167) + abs(beta) + abs(gamma) + abs(A-2.167) + abs(L+4.667) + abs(H)
+        #print(alpha)
+        return abs(alpha + 2.167) + abs(A - 0.002167) + abs(L + 0.004667)
+        #print(abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H))
+        #return abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H)
     except:
         print('该数据无效')
-        return 100
+        return 300
 
 
 #  调整时间
@@ -44,6 +47,6 @@ def adjustTime(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
 if __name__ == '__main__':
     for i in np.arange(-0.5, 0.5, 0.001):
         try:
-            print(cal_L(i, 0.01))
+            print(cal_A(i, 0.01))
         except:
             print(100000)
