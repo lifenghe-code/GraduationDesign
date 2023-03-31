@@ -10,8 +10,8 @@ def main():
     cycle_ = 25  # 迭代次数
     mesh_div = 10  # 网格等分数量
     thresh = 300  # 外部存档阀值
-    min_ = np.array([-5, -0.5])  # 粒子坐标的最小值
-    max_ = np.array([5, 0.5])  # 粒子坐标的最大值
+    min_ = np.array([-0.5, -0.5])  # 粒子坐标的最小值
+    max_ = np.array([0.5, 0.5])  # 粒子坐标的最大值
     mopso_ = Mopso(particals, w, c1, c2, max_, min_, thresh, mesh_div)  # 粒子群实例化
     pareto_in, pareto_fitness = mopso_.done(cycle_)  # 经过cycle_轮迭代后，pareto边界粒子
     np.savetxt("./img_txt/pareto_in.txt", pareto_in)  # 保存pareto边界粒子的坐标
