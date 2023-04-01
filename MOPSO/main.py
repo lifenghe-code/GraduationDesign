@@ -7,7 +7,7 @@ def main():
     c1 = 0.1  # 局部速度因子
     c2 = 0.1  # 全局速度因子
     particals = 200  # 粒子群的数量
-    cycle_ = 50  # 迭代次数
+    cycle_ = 30  # 迭代次数
     mesh_div = 10  # 网格等分数量
     thresh = 300  # 外部存档阀值
     min_ = np.array([-0.5, -0.5])  # 粒子坐标的最小值

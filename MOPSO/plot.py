@@ -34,32 +34,7 @@ class Plot_pareto:
         ax1.set_xlabel('input_x1')
         ax1.set_ylabel('input_x2')
         ax1.set_zlabel('fitness_y1')
-        '''
-        newX1, newX2 = np.meshgrid(self.x1, self.x2)  # 根据横纵坐标生成网格点
-        newY1 = np.zeros((self.m, self.n))
-        for i in range(len(self.x1[0])):
-            for j in range(len(self.x2[0])):
-                if self.y1[i, j] < 100:
-                    newX1[i, j] = self.x1[i, j]
-                    newX2[i, j] = self.x2[i, j]
-                    newY1[i, j] = self.y1[i, j]
-        ax1.plot_surface(newX1, newX2, newY1, alpha=0.6)
-        #####################################################################
-        newX1, newX2, newY1 = [], [], []
-        for i in range(len(fitness_[:, 0])):
-            if fitness_[i, 0] < sys.maxsize:
-                newX1.append(in_[i, 0])
-                newX2.append(in_[i, 1])
-                newY1.append(fitness_[i, 0])
-        ax1.scatter(newX1, newX2, newY1, s=20, c='blue', marker=".")
-        newArchiveX1, newArchiveX2, newArchive_fitness = [], [], []
-        for i in range(len(archive_fitness[:, 0])):
-            if archive_fitness[i, 0] < sys.maxsize:
-                newArchiveX1.append(archive_in[i, 0])
-                newArchiveX2.append(archive_in[i, 0])
-                newArchive_fitness.append(archive_fitness[i, 0])
-        ax1.scatter(newArchiveX1, newArchiveX2, newArchive_fitness, s=50, c='red', marker=".")
-        '''
+
         ax1.plot_surface(self.x1, self.x2, self.y1, alpha=0.6)
         ax1.scatter(in_[:, 0], in_[:, 1], fitness_[:, 0], s=20, c='blue', marker=".")
         ax1.scatter(archive_in[:, 0], archive_in[:, 1], archive_fitness[:, 0], s=50, c='red', marker=".")
@@ -69,12 +44,12 @@ class Plot_pareto:
         ax2.set_xlabel('input_x1')
         ax2.set_ylabel('input_x2')
         ax2.set_zlabel('fitness_y2')
-        #ax2.plot_surface(self.x1, self.x2, self.y2, alpha=0.6)
+        ax2.plot_surface(self.x1, self.x2, self.y2, alpha=0.6)
         ax2.scatter(in_[:, 0], in_[:, 1], fitness_[:, 1], s=20, c='blue', marker=".")
         ax2.scatter(archive_in[:, 0], archive_in[:, 1], archive_fitness[:, 1], s=50, c='red', marker=".")
         ax3 = fig.add_subplot(133)
-        ax3.set_xlim((-1000, 100))
-        ax3.set_ylim((-1000, 500))
+        ax3.set_xlim((-5, 5))
+        ax3.set_ylim((0, 20))
         ax3.set_xlabel('fitness_y1')
         ax3.set_ylabel('fitness_y2')
         ax3.scatter(fitness_[:, 0], fitness_[:, 1], s=10, c='blue', marker=".")
