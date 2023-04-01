@@ -83,4 +83,4 @@ if __name__ == '__main__':
         try:
             print(cal_alpha(i, 0.01))
         except:
-            print(100000)
+            print(1)
