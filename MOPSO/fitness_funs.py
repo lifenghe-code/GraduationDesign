@@ -2,10 +2,13 @@
 import numpy as np
 import optimization
 
+
 # 适应值函数：实际使用时请根据具体应用背景自定义
 def fitness_(in_):
-    fit_1 = optimization.positionDeviations(0, 0, in_[0], in_[1])
-    fit_2 = optimization.adjustTime(0, 0, in_[0], in_[1])  # 调整时间，暂时不用
+    fit_0 = optimization.positionDeviations0(0, 0, in_[0], in_[1])
+    fit_1 = optimization.positionDeviations1(0, 0, in_[0], in_[1])
+    # fit_2= optimization.positionDeviations1(in_[0], in_[1], 0, 0)
     fit_3 = optimization.positionDeviations3(0, 0, in_[0], in_[1])
-    fit_4 = optimization.positionDeviations4(0, 0, in_[0], in_[1])
-    return [fit_1, fit_3, fit_4]
+    # fit_4 = optimization.positionDeviations3(in_[0], in_[1], 0, 0)
+    # fit_5 = optimization.positionDeviations4(in_[0], in_[1], 0, 0)
+    return [fit_0, fit_1, fit_3]

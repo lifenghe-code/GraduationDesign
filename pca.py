@@ -1,6 +1,7 @@
 import numpy as np
 data = np.loadtxt('data.txt')
 data = np.array(data, 'float32')
+data = np.round(data, 3)
 # 去中心化
 # data矩阵每一列代表同一类型的偏差，每一列代表六个偏差分量
 mean = np.mean(data, axis=0)  # 沿轴0调用mean函数
@@ -25,7 +26,7 @@ a = 0
 num = 0  # 需要的主成分个数
 for i in range(len(Index)):
     a += f[Index[i]]
-    if a > 0.85:
+    if a > 0.8:
         num = i + 1
         break
     else:

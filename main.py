@@ -25,10 +25,15 @@ def main():
     ax.set_xlabel('fitness_y1')
     ax.set_ylabel('fitness_y2')
     ax.set_zlabel('fitness_y3')
-    ax.scatter(pareto_fitness[:, 0], pareto_fitness[:, 1], pareto_fitness[:, 2], alpha=0.6)
-    # ax.scatter(in_[:, 0], in_[:, 1], fitness_[:, 0], s=20, c='blue', marker=".")
+    ax.scatter(pareto_fitness[:, 0], pareto_fitness[:, 1], pareto_fitness[:, 2], cmap='viridis', alpha=0.2)
     plt.show()
-
+    '''
+    for i in range(len(pareto_in)):
+        y = [optimization.positionDeviations(0, 0, pareto_in[i, 0], pareto_in[i, 1]),
+             optimization.positionDeviations3(0, 0, pareto_in[i, 0], pareto_in[i, 1]),
+             optimization.positionDeviations4(0, 0, pareto_in[i, 0], pareto_in[i, 1])]
+        print(y)
+    '''
 
 if __name__ == "__main__":
     main()

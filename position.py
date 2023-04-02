@@ -13,7 +13,7 @@ l6 = 1.3
 def cal_A(lh, lv):
     Lambda = 2 * atan((l5 - lh) * sin(pi / 6) / ((l2 - lh) * sin(pi / 6)) ** 2 + (l6 + lh) ** 2)
     Phi = acos((l6 + lv) ** 2 / 5) - acos(l6 ** 2 / 5)
-    Numerator = (l5 + lh) * (l5 - lh) * cos(Lambda) * cos(Phi)
+    Numerator = (l5 + lh) * (l5 - lv) * cos(Lambda) * cos(Phi)
     Denominator = (l5 - lh) * sin(4 / pi + Lambda)
     A = (Numerator / Denominator) / 2 - 1.1
     return A
@@ -22,9 +22,9 @@ def cal_A(lh, lv):
 def cal_L(lh, lv):
     Lambda = 2 * atan((l5 - lh) * sin(pi / 6) / ((l2 - lh) * sin(pi / 6)) ** 2 + (l6 + lh) ** 2)
     Phi = acos((l6 + lv) ** 2 / 5) - acos(l6 ** 2 / 2)
-    Numerator = cos(Phi)
+    Numerator = cos(Phi)*sin(pi/6+Phi)/((l6-lv)*(l6+lv))
     Denominator = 5 * sin(Phi) * (l6 + lv) * cos(Lambda) / ((l5 - lh) * sin(Lambda) + (l5 + lh) * sin(Lambda))
-    L = (Numerator / Denominator) / 10+0.1
+    L = (Numerator / Denominator) / 10+0.06
     return L
 
 
@@ -39,7 +39,7 @@ def cal_alpha(lh, lv):
     Phi = acos((l6 + lv) ** 2 / 5) - acos(l6 ** 2 / 5)
     Numerator = (l5 + lh) * (l5 - lh) * cos(Lambda) * cos(Phi)
     Denominator = (l5 - lh) * sin(4 / pi + Lambda)
-    alpha = ((Numerator / Denominator) / 3 - 0.75)*40
+    alpha = ((Numerator / Denominator) / 3 - 0.75)*40*(-1)
     return alpha
 
 
@@ -66,21 +66,21 @@ m, n = np.shape(x1)
 y1, y2 = np.zeros((m, n)), np.zeros((m, n))
 for i in range(m):
     for j in range(n):
-        y1[i, j] = cal_A(x1[i, j], x2[i, j])
-'''
+        y1[i, j] = cal_L(x1[i, j], x2[i, j])
+
 fig = plt.figure()
 ax1 = fig.add_subplot(111, projection='3d')
 surf = ax1.plot_surface(x1, x2, y1, cmap=plt.cm.brg, alpha=0.6)
 cb = fig.colorbar(surf, shrink=0.8, aspect=15)  # 设置颜色棒
 plt.show()
-'''
+
 
 '''
 各个位姿参数的范围
 lh,lv的范围 -0.5 -- 0.5
 lsh,lsu的范围 -0.05 -- 0.05
 A -0.15 -- 0.15
-L -0.1 -- 0.075
+L -0.02 -- 0.035
 H -0.04 -- 0.04
 alpha -4 -- 4
 beta -4 -- 4
