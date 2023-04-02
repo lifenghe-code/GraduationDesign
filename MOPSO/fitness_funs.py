@@ -9,4 +9,4 @@ def fitness_(in_):
     fit_2 = optimization.adjustTime(0, 0, in_[0], in_[1])
     fit_3 = optimization.positionDeviations3(0, 0, in_[0], in_[1])
     fit_4 = optimization.positionDeviations4(0, 0, in_[0], in_[1])
-    return [fit_1,  fit_3, fit_4]
+    return [fit_1, fit_3, fit_4]

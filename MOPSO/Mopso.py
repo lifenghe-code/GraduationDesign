@@ -16,7 +16,7 @@ class Mopso:
         self.min_ = min_
         self.max_v = (max_ - min_) * 0.05  # 速度上限
         self.min_v = (max_ - min_) * 0.05 * (-1)  # 速度下限
-        #self.plot_ = plot.Plot_pareto()
+        self.plot_ = plot.Plot_pareto()
 
     def evaluation_fitness(self):
         # 计算适应度值ֵ
@@ -55,8 +55,8 @@ class Mopso:
 
     def done(self, cycle_):
         self.initialize()
-        #self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, -1)
+        self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, -1)
         for i in range(cycle_):
             self.update_()
-            #self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, i)
+            self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, i)
         return self.archive_in, self.archive_fitness

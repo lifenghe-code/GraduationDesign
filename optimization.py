@@ -25,7 +25,7 @@ def positionDeviations(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         L = cal_L(Delta_lh, Delta_lv)
         H = cal_H(Delta_lsu, Delta_lsh)
         print(alpha, "........", A, "........", L)
-        return abs(alpha - 3)
+        return abs(alpha - 2)
         # print(abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H))
         # return abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H)
     except:
