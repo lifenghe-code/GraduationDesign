@@ -1,8 +1,6 @@
 # encoding: utf-8
 import numpy as np
 import random
-
-
 class mesh_crowd(object):
     def __init__(self, curr_archiving_in, curr_archiving_fit, mesh_div, min_, max_, particals):
         self.curr_archiving_in = curr_archiving_in  # 存档中所有粒子坐标

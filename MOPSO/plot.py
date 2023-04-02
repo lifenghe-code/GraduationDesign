@@ -51,7 +51,6 @@ class Plot_pareto:
         ax3.scatter(in_[:, 0], in_[:, 1], fitness_[:, 2], s=20, c='blue', marker=".")
         ax3.scatter(archive_in[:, 0], archive_in[:, 1], archive_fitness[:, 2], s=50, c='red', marker=".")
         # plt.show()
-        #print(archive_fitness[:, 1])
         plt.savefig('./img_txt/' + str(i + 1) + '.png')
         #print('第' + str(i + 1) + '次迭代的图片保存于 img_txt 文件夹')
         plt.close()

@@ -1,5 +1,4 @@
 import numpy as np
-
 data = np.loadtxt('data.txt')
 data = np.array(data, 'float32')
 # 去中心化

@@ -1,7 +1,5 @@
 # 由于论文作者不方便提供具体的数据和模型，因此在本文件中合理的构造一些悬臂式掘进机的位姿偏差数据
-
 import numpy as np
-
 # 位姿偏差数据
 A = np.random.randint(low=-20, high=20, size=(1, 6))
 L = np.random.randint(low=-20, high=20, size=(1, 6))

@@ -1,9 +1,6 @@
 #  建立悬臂式掘进机的优化模型
-import numpy as np
-from test import *
-import sys
+from position import *
 
-pi = 3.14159
 compensationStrategy = {'A': ['Delta_lh', 'Delta_lv'], 'L': ['Delta_lh', 'Delta_lv'], 'H': ['Delta_lsh', 'Delta_lsu'],
                         'alpha': ['Delta_lh', 'Delta_lv'], 'beta': ['Delta_lsh', 'Delta_lsu'],
                         'gamma': ['Delta_lsh', 'Delta_lsu']}
@@ -25,12 +22,12 @@ def positionDeviations(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         L = cal_L(Delta_lh, Delta_lv)
         H = cal_H(Delta_lsu, Delta_lsh)
         print(alpha, "........", A, "........", L)
-        return abs(alpha - 2)
+        return abs(alpha - 3)
         # print(abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H))
         # return abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H)
     except:
         print('该数据无效')
-        return 300
+        return None
 
 
 def positionDeviations3(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
@@ -47,7 +44,7 @@ def positionDeviations3(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         # return abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H)
     except:
         print('该数据无效')
-        return 300
+        return None
 
 
 def positionDeviations4(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
@@ -64,10 +61,10 @@ def positionDeviations4(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         # return abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H)
     except:
         print('该数据无效')
-        return 300
+        return None
 
 
-#  调整时间
+#  调整时间，目前不用
 def adjustTime(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
     Time = 0
     Time += abs(Delta_lsh) / adjustSpeed['Delta_lsh']

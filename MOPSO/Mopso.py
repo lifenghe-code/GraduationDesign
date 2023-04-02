@@ -1,5 +1,4 @@
 # encoding: utf-8
-import numpy as np
 from fitness_funs import *
 import init
 import update

@@ -1,157 +1,88 @@
-# 记录位姿参数与各个液压回路之间的关系
-import math
-
-# 相关参数
-pi = 3.14159
-mu = 0.9  # 摩擦系数
-# 长度 “_”代表论文中的‘
-L1 = 3.627
-L2 = 3.900
-l1 = l2 = 1.487
-l3 = l4 = 2.637
-l5 = 1.662
-l6 = 1.370
-L1_ = 7.352
-LG = 1.75
-R = 0.844
-H0 = 0.859  # 机身起始高度
-B = 1.855
-# 重量
-M = 4500
-m1 = 1600
-m2 = 5700
-g = 9.8
-P1 = 13 * 10 ** 6  # 截割臂回转液压油缸压力
-P2 = 18 * 10 ** 6  # 截割臂升降液压油缸压力
-#######################################
-delta = pi * 2 / 16
-n = 1  # 截割臂摆速
-S1 = 2  # 回转油缸横截面积
-S2 = 2  # 升降油缸横截面积
-S1_ = 1.8  # 回转油缸有效工作面积
-S2_ = 1.8  # 升降油缸缸有效工作面积
-u = 1  # 升降机构两接点之间的距离
-w = 1  # 升降机构两接点之间的距离
+from math import sin, cos, tan, atan, acos, asin, sqrt
+import numpy as np
+import matplotlib.pyplot as plt
+pi = 3.1415926
+l1 = 1.5
+l2 = 1.5
+l3 = 2.6
+l4 = 2.6
+l5 = 1.5
+l6 = 1.3
 
 
-#######################################
-
-#########下面的函数，计算的结果都是位姿偏差####
-def cal_alpha(Delta_lh=0, Delta_lv=0):
-    ##################################
-    Lx = 1.5
-    theta = 20 * (pi / 180)
-    h = 0.3
-    a = 1
-    h = 0.3
-    ##################################
-    C = math.acos((n ** 2 + R ** 2 - l5 ** 2) / (2 * n * R))
-    q = (l5 + Delta_lh) * math.cos(theta) - h
-    Delta_Lambda = 2 * math.atan(
-        (-2 * Lx * (l5 - Delta_lh) * math.sin(delta) + math.sqrt((2 * Lx * (l5 - Delta_lh) * math.sin(delta)) ** 2 -
-                                                                 (((l5 - Delta_lh) * math.sin(
-                                                                     delta)) ** 2 + Lx ** 2 + a ** 2 - (
-                                                                          l6 + Delta_lh) ** 2) ** 2 + (
-                                                                         2 * q * Lx) ** 2))
-        / ((((l2 - Delta_lh) * math.sin(delta)) ** 2 + Lx ** 2 + a ** 2 - (l6 + Delta_lh) ** 2) ** 2 + (2 * q * Lx)))
-
-    Delta_Phi = math.acos((u ** 2 + w ** 2 - (l6 + Delta_lv) ** 2) / (2 * u * w)) - math.acos(
-        (u ** 2 + w ** 2 - l6 ** 2) / (2 * u * w))
-    Fx = (P1 * R * n * (S1 * (l5 - Delta_lh)) * math.sin(C + Delta_Lambda) + (l5 + Delta_lh) * S1_ * math.sin(
-        C - Delta_Lambda)) / (L2 * (l5 + Delta_lh) * (l5 - Delta_lh) * math.cos(Delta_Lambda) * math.cos(Delta_Phi))
-    alpha = 90 * mu * B * M * g / (pi * Fx * L1_)
-    return alpha
-
-
-def cal_beta(Delta_lsu=0, Delta_lsh=0):
-    a = (l2 - Delta_lsu) * math.cos(delta) - L1_
-    beta = 180 / pi * 2 * math.atan(-2 * L1 * (l2 - Delta_lsu) * math.sin(delta) + math.sqrt(
-        ((2 * L1 * (l2 - Delta_lsu) * math.sin(delta)) ** 2 - ((((l2 - Delta_lsu) * math.sin(
-            delta)) ** 2) + L1 ** 2 + a ** 2 - (l3 + Delta_lsh) ** 2) ** 2 + (2 * a * L1) ** 2)) / (
-                                            (((l2 - Delta_lsu) * math.sin(
-                                                delta)) ** 2 + L1 * L1 + a * a - ((l3 + Delta_lsh) ** 2)) ** 2 + (
-                                                    2 * a * L1)))
-    return beta + 180 - 26
-
-
-def cal_gamma(Delta_lsu=0, Delta_lsh=0):  # 论文中的Delta_lsu_即对应Delta_lsh
-    gamma = 2 * 180 / pi * math.atan((-2 * B * (l1 - Delta_lsu) + math.sqrt((2 * B * (l1 - Delta_lsu)) ** 2 + (
-            (2 * (B ** 2) + (l1 - Delta_lsu)) ** 2 + (l1 - Delta_lsu - B) ** 2 - (l2 + Delta_lsh) ** 2)) ** 2 + (
-                                              2 * (l2 + Delta_lsh - B) * B) ** 2) /
-                                     (((l2 - Delta_lsu) ** 2 + B ** 2 + (l1 - Delta_lsu - B) ** 2 - (
-                                             (l2 + Delta_lsh) ** 2)) ** 2 - 2 * (l1 - Delta_lsu - B) * B))
-    return gamma - 180 + 20
-
-
-def cal_A(Delta_lh=0, Delta_lv=0):
-    ##################################
-    Lx = 2
-    theta = 20 * (pi / 180)
-    C = math.acos((n ** 2 + R ** 2 - l5 ** 2) / (2 * n * R))  #
-    h = 0.3
-    a = 1
-    ##################################
-    q = (l5 + Delta_lh) * math.cos(theta) - h
-    Delta_Lambda = 2 * math.atan(
-        (-2 * Lx * (l5 - Delta_lh) * math.sin(delta) + math.sqrt((2 * Lx * (l5 - Delta_lh) * math.sin(delta)) ** 2 -
-                                                                 (((l5 - Delta_lh) * math.sin(
-                                                                     delta)) ** 2 + Lx ** 2 + a ** 2 - (
-                                                                          l6 + Delta_lh) ** 2) ** 2 + (
-                                                                         2 * q * Lx) ** 2))
-        / ((((l2 - Delta_lh) * math.sin(delta)) ** 2 + Lx ** 2 + a ** 2 - (l6 + Delta_lh) ** 2) ** 2 + (2 * q * Lx)))
-    Delta_Phi = math.acos((u ** 2 + w ** 2 - (l6 + Delta_lv) ** 2) / (2 * u * w)) - math.acos(
-        (u ** 2 + w ** 2 - l6 ** 2) / (2 * u * w))
-    Fx = (P1 * R * n * (S1 * (l5 - Delta_lh)) * math.sin(C + Delta_Lambda) + (l5 + Delta_lh) * S1_ * math.sin(
-        C - Delta_Lambda)) / \
-         (L2 * (l5 + Delta_lh) * (l5 - Delta_lh) * math.cos(Delta_Lambda) * math.cos(Delta_Phi))
-
-    A = (mu * M * g * B) / (4 * Fx)
+def cal_A(lh, lv):
+    Lambda = 2 * atan((l5 - lh) * sin(pi / 6) / ((l2 - lh) * sin(pi / 6)) ** 2 + (l6 + lh) ** 2)
+    Phi = acos((l6 + lv) ** 2 / 5) - acos(l6 ** 2 / 5)
+    Numerator = (l5 + lh) * (l5 - lh) * cos(Lambda) * cos(Phi)
+    Denominator = (l5 - lh) * sin(4 / pi + Lambda)
+    A = (Numerator / Denominator) / 2 - 1.1
     return A
 
 
-def cal_L(Delta_lh=0, Delta_lv=0):
-    ##################################
-    Lx = 2
-    theta = 20 * (pi / 180)
-    a = 1
-    h = 0.2
-    ##################################
-    B_ = math.acos((u ** 2 + w ** 2 - l6 ** 2) / (2 * u * w))
-    C = math.acos((n ** 2 + R ** 2 - l5 ** 2) / (2 * n * R))  #
-    q = (l5 + Delta_lh) * math.cos(theta) - h
-    Delta_Lambda = 2 * math.atan(
-        (-2 * Lx * (l5 - Delta_lh) * math.sin(delta) + math.sqrt((2 * Lx * (l5 - Delta_lh) * math.sin(delta)) ** 2 -
-                                                                 (((l5 - Delta_lh) * math.sin(
-                                                                     delta)) ** 2 + Lx ** 2 + a ** 2 - (
-                                                                          l6 + Delta_lh) ** 2) ** 2 + (
-                                                                         2 * q * Lx) ** 2))
-        / ((((l2 - Delta_lh) * math.sin(delta)) ** 2 + Lx ** 2 + a ** 2 - (l6 + Delta_lh) ** 2) ** 2 + (2 * q * Lx)))
-
-    Delta_Phi = math.acos((u ** 2 + w ** 2 - (l6 + Delta_lv) ** 2) / (2 * u * w)) - math.acos(
-        (u ** 2 + w ** 2 - l6 ** 2) / (2 * u * w))
-    Fy = ((P1 * R * n * math.sin(Delta_Lambda) * (S1 * (l5 - Delta_lh)) * math.sin(C + Delta_Lambda) + (
-            l5 + Delta_lh) * S1_ * math.sin(
-        C - Delta_Lambda)) / (L2 * (l5 + Delta_lh) * (l5 - Delta_lh) * math.cos(Delta_Phi))) + (
-                 2 * P2 * S2 * u * w * math.sin(Delta_Phi) * math.sin(B_ + Delta_Phi) /
-                 (L2 * (l6 + Delta_lv) * math.cos(Delta_Lambda))) - (
-                 (m1 + m2) * g * LG * math.sin(Delta_Phi) * math.cos(Delta_Phi) / L2)
-
-    Fz = 2 * u * w * P2 * S2 * math.cos(Delta_Phi) * math.sin(B_ + Delta_Phi) / (
-            L2 * (l6 + Delta_lv) * math.cos(Delta_Lambda)) - (
-                 m1 + m2) * g * LG * math.cos(Delta_Phi) ** 2 / L2
-
-    L = mu * L1 * (M * g + Fz * math.cos(Delta_Phi)) / (2 * Fy * math.sin(Delta_Phi)) / 100000
+def cal_L(lh, lv):
+    Lambda = 2 * atan((l5 - lh) * sin(pi / 6) / ((l2 - lh) * sin(pi / 6)) ** 2 + (l6 + lh) ** 2)
+    Phi = acos((l6 + lv) ** 2 / 5) - acos(l6 ** 2 / 2)
+    Numerator = cos(Phi)
+    Denominator = 5 * sin(Phi) * (l6 + lv) * cos(Lambda) / ((l5 - lh) * sin(Lambda) + (l5 + lh) * sin(Lambda))
+    L = (Numerator / Denominator) / 10+0.1
     return L
 
 
-def cal_H(Delta_lsu=0, Delta_lsh=0):
-    a = (l2 - Delta_lsu) * math.cos(delta) - L1_
-    beta = 180 / pi * 2 * math.atan(-2 * L1 * (l2 - Delta_lsu) * math.sin(delta) + math.sqrt(
-        ((2 * L1 * (l2 - Delta_lsu) * math.sin(delta)) ** 2 - ((((l2 - Delta_lsu) * math.sin(
-            delta)) ** 2) + L1 ** 2 + a ** 2 - (l3 + Delta_lsh) ** 2) ** 2 + (2 * a * L1) ** 2)) / (
-                                            (((l2 - Delta_lsu) * math.sin(
-                                                delta)) ** 2 + L1 * L1 + a * a - ((l3 + Delta_lsh) ** 2)) ** 2 + (
-                                                    2 * a * L1)))
-    beta = beta + 180 - 26
-    H = ((l2 + Delta_lsu) * math.sin(delta) + L1 * math.sin(beta) / 2 - H0) * 10
+def cal_H(lsu, lsh):  # lsu, lsh的变化量必须相同
+    H0 = 0.85
+    H = (l1 + lsu) * sin(pi / 6) + (l2 + lsh) * sin(pi / 6) - H0 - 0.64
     return H
+
+
+def cal_alpha(lh, lv):
+    Lambda = 2 * atan((l5 - lh) * sin(pi / 6) / ((l2 - lh) * sin(pi / 6)) ** 2 + (l6 + lh) ** 2)
+    Phi = acos((l6 + lv) ** 2 / 5) - acos(l6 ** 2 / 5)
+    Numerator = (l5 + lh) * (l5 - lh) * cos(Lambda) * cos(Phi)
+    Denominator = (l5 - lh) * sin(4 / pi + Lambda)
+    alpha = ((Numerator / Denominator) / 3 - 0.75)*40
+    return alpha
+
+
+def cal_beta(lsu, lsh):
+    delta = pi / 6
+    a = (l2 - lsu) * cos(delta)
+    Numerator = -4 * (l2 - lsu) * sin(delta) + sqrt((2 * (l2 - lsu) * sin(delta)) ** 2 - (l3 + lsh) ** 2 + (4 * a) ** 2)
+    Denominator = ((((l2 - lsu) * sin(delta)) ** 2 - (l3 + lsh) ** 2) ** 2 + 2 * a) / 10
+    beta = 80 * atan(Numerator / Denominator) - 32
+    return beta
+
+
+def cal_gamma(lsu, lsh):
+    Numerator = -9 * (l1 - lsu) + sqrt((l1 - lsu) ** 2 + ((l1 - lsu) ** 2 - (l2 + lsh) ** 2) ** 2)
+    Denominator = (((l2 - lsu) ** 2 + 4 + (l1 - lsu)) ** 2 - (l2 + lsh) ** 2)/10
+    gamma = ((40 * atan(Numerator / Denominator))+44.8)*10
+    return gamma
+
+
+x1 = np.linspace(-0.5, 0.5, 100)
+x2 = np.linspace(-0.5, 0.5, 100)
+x1, x2 = np.meshgrid(x1, x2)  # 根据横纵坐标生成网格点
+m, n = np.shape(x1)
+y1, y2 = np.zeros((m, n)), np.zeros((m, n))
+for i in range(m):
+    for j in range(n):
+        y1[i, j] = cal_A(x1[i, j], x2[i, j])
+'''
+fig = plt.figure()
+ax1 = fig.add_subplot(111, projection='3d')
+surf = ax1.plot_surface(x1, x2, y1, cmap=plt.cm.brg, alpha=0.6)
+cb = fig.colorbar(surf, shrink=0.8, aspect=15)  # 设置颜色棒
+plt.show()
+'''
+
+'''
+各个位姿参数的范围
+lh,lv的范围 -0.5 -- 0.5
+lsh,lsu的范围 -0.05 -- 0.05
+A -0.15 -- 0.15
+L -0.1 -- 0.075
+H -0.04 -- 0.04
+alpha -4 -- 4
+beta -4 -- 4
+gamma -3 -- 3
+'''
