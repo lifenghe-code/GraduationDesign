@@ -44,8 +44,8 @@ class PSO:
         """
         x1 = x[0]
         x2 = x[1]
-        y = optimization.positionDeviations(0, 0, x1, x2) + optimization.positionDeviations3(0, 0, x1, x2) + \
-            optimization.positionDeviations4(0, 0, x1, x2)
+        y = optimization.positionDeviations0(0, 0, x1, x2) + optimization.positionDeviations1(0, 0, x1, x2) + \
+            optimization.positionDeviations3(0, 0, x1, x2)
         # print(y)
         return y
 
@@ -89,12 +89,7 @@ class PSO:
             temp = self.fitness(self.final_best)
             print('当前的最佳适应度：{}'.format(temp))
             best.append(temp)
-            print('_______________________________')
-        y = [optimization.positionDeviations(0, 0, self.final_best[0], self.final_best[1]),
-             optimization.positionDeviations3(0, 0, self.final_best[0], self.final_best[1]),
-             optimization.positionDeviations4(0, 0, self.final_best[0], self.final_best[1])]
-        print(y)
-        '''
+
         t = [i for i in range(self.time)]
         plt.figure()
         plt.plot(t, best, color='red', marker='.', ms=15)
@@ -103,8 +98,7 @@ class PSO:
         plt.xlabel(u"迭代次数")  # X轴标签
         plt.ylabel(u"适应度")  # Y轴标签
         plt.title(u"迭代过程")  # 标题
-        plt.show()
-        '''
+        plt.savefig('PSO//pso.png')
 
 
 if __name__ == '__main__':
@@ -117,5 +111,7 @@ if __name__ == '__main__':
     up = [0.5, 0.5]
     pso = PSO(dimension, time, size, low, up, v_low, v_high)
     pso.pso()
-
-
+    y = [optimization.positionDeviations0(0, 0, pso.final_best[0], pso.final_best[1]),
+         optimization.positionDeviations1(0, 0, pso.final_best[0], pso.final_best[1]),
+         optimization.positionDeviations3(0, 0, pso.final_best[0], pso.final_best[1])]
+    np.savetxt('PSO//pso_fitness.txt', [y])
