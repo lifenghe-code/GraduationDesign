@@ -114,4 +114,4 @@ if __name__ == '__main__':
     y = [optimization.positionDeviations0(0, 0, pso.final_best[0], pso.final_best[1]),
          optimization.positionDeviations1(0, 0, pso.final_best[0], pso.final_best[1]),
          optimization.positionDeviations3(0, 0, pso.final_best[0], pso.final_best[1])]
-    np.savetxt('PSO//pso_fitness.txt', [y])
+    np.savetxt('PSO//pso_fitness.txt', [y])  # 写入文件
