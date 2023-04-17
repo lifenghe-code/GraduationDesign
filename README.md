@@ -4,4 +4,5 @@ data保存生成的位姿偏差
 pca对数据进行降维  
 position位姿偏差和各个结构回路的函数  
 optimization优化函数，即MOPSO的目标函数  
-
+pso粒子群优化算法，作为对照
+main主程序

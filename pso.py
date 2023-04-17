@@ -8,7 +8,6 @@ import pylab as mpl
 
 mpl.rcParams['font.sans-serif'] = ['SimHei']
 
-
 class PSO:
     def __init__(self, dimension, time, size, low, up, v_low, v_high):
         # 初始化

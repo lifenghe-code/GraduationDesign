@@ -55,7 +55,7 @@ def compare_pbest(in_indiv, pbest_indiv):
 
 def update_pbest(in_, fitness_, in_pbest, out_pbest):
     for i in range(out_pbest.shape[0]):
-        # ͨ比较历史pbest和当前适应度，决定是否要更新
+        # 比较历史pbest和当前适应度，决定是否要更新
         if compare_pbest(fitness_[i], out_pbest[i]):
             out_pbest[i] = fitness_[i]
             in_pbest[i] = in_[i]

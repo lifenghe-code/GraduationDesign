@@ -1,6 +1,27 @@
 #  建立悬臂式掘进机的优化模型
 from position import *
-
+'''
+各个位姿参数的范围
+lh,lv的范围 -0.5 -- 0.5
+lsh,lsu的范围 -0.05 -- 0.05
+A -0.15 -- 0.15
+L -0.02 -- 0.035
+H -0.04 -- 0.04
+alpha -4 -- 4
+beta -4 -- 4
+gamma -3 -- 3
+#######################例子
+A_ = -0.05
+L_ = 0.03
+alpha_ = 2
+########################
+'''
+H_ = 0
+beta_ = 0
+gamma_ = 0
+A_ = -0.05
+L_ = 0.03
+alpha_ = 2
 compensationStrategy = {'A': ['Delta_lh', 'Delta_lv'], 'L': ['Delta_lh', 'Delta_lv'], 'H': ['Delta_lsh', 'Delta_lsu'],
                         'alpha': ['Delta_lh', 'Delta_lv'], 'beta': ['Delta_lsh', 'Delta_lsu'],
                         'gamma': ['Delta_lsh', 'Delta_lsu']}
@@ -21,10 +42,8 @@ def positionDeviations0(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
         A = cal_A(Delta_lh, Delta_lv)
         L = cal_L(Delta_lh, Delta_lv)
         H = cal_H(Delta_lsu, Delta_lsh)
-        print(A, "........", L, "........", alpha)
-        return abs(A + 0.1)
-        # print(abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H))
-        # return abs(alpha + 2.167) + abs(beta) + abs(gamma) + abs(A - 2.167) + abs(L + 4.667) + abs(H)
+        # print(A, "........", L, "........", alpha)
+        return abs(A - A_)
     except:
         print('该数据无效')
         return 1000
@@ -33,7 +52,7 @@ def positionDeviations0(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
 def positionDeviations1(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
     try:
         L = cal_L(Delta_lh, Delta_lv)
-        return abs(L - 0.01)
+        return abs(L - L_)
     except:
         print('该数据无效')
         return 1000
@@ -42,7 +61,7 @@ def positionDeviations1(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
 def positionDeviations2(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
     try:
         H = cal_H(Delta_lsu, Delta_lsh)
-        return abs(H)
+        return abs(H - H_)
     except:
         print('该数据无效')
         return 1000
@@ -51,7 +70,7 @@ def positionDeviations2(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
 def positionDeviations3(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
     try:
         alpha = cal_alpha(Delta_lh, Delta_lv)
-        return abs(alpha - 3)
+        return abs(alpha - alpha_)
     except:
         print('该数据无效')
         return 1000
@@ -61,7 +80,7 @@ def positionDeviations4(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
     try:
 
         beta = cal_beta(Delta_lsu, Delta_lsh)
-        return abs(beta - 2)
+        return abs(beta - beta_)
     except:
         print('该数据无效')
         return 1000
@@ -70,7 +89,7 @@ def positionDeviations4(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
 def positionDeviations5(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
     try:
         gamma = cal_gamma(Delta_lsu, Delta_lsh)
-        return abs(gamma - 2)
+        return abs(gamma - gamma_)
     except:
         print('该数据无效')
         return 1000
