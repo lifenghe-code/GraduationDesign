@@ -19,8 +19,8 @@ b = [2, 4, 5]
 
 
 def selectbest():
-    # for i in range(len(priPostures)):
-    for i in range(1, 2):
+    for i in range(len(priPostures)):
+    #for i in range(1, 2):
         scores = list()
         tmp1 = list()  # A，L，alpha
         tmp2 = list()  # H，beta，gamma
