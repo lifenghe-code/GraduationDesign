@@ -6,6 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/img_txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/PSO" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/data" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CompensationStrategy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/result" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

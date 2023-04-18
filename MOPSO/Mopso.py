@@ -6,7 +6,9 @@ import plot
 
 
 class Mopso:
-    def __init__(self, particals, w, c1, c2, max_, min_, thresh, mesh_div=10):
+    def __init__(self, particals, w, c1, c2, max_, min_, thresh, mesh_div=10, position_error=None, key=0):
+        if position_error is None:
+            self.position_error = [0, 0, 0, 0, 0, 0]
         self.w, self.c1, self.c2 = w, c1, c2
         self.mesh_div = mesh_div
         self.particals = particals
@@ -15,13 +17,15 @@ class Mopso:
         self.min_ = min_
         self.max_v = (max_ - min_) * 0.05  # 速度上限
         self.min_v = (max_ - min_) * 0.05 * (-1)  # 速度下限
-        self.plot_ = plot.Plot_pareto()
+        #self.plot_ = plot.Plot_pareto()
+        self.position_error = position_error
+        self.key = key  # key = 0，1分别代表两种补偿策略
 
     def evaluation_fitness(self):
         # 计算适应度值ֵ
         fitness_curr = []
         for i in range(self.in_.shape[0]):
-            fitness_curr.append(fitness_(self.in_[i]))
+            fitness_curr.append(fitness_(self.in_[i], self.position_error, self.key))
         self.fitness_ = np.array(fitness_curr)  # ֵ
 
     def initialize(self):
@@ -54,8 +58,8 @@ class Mopso:
 
     def done(self, cycle_):
         self.initialize()
-        self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, -1)
+        # self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, -1)
         for i in range(cycle_):
             self.update_()
-            self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, i)
+            #self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, i)
         return self.archive_in, self.archive_fitness

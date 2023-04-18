@@ -17,5 +17,5 @@ with open('./data/PriData/priDeviations.txt', encoding='utf-8') as f:
         tmp1 = line[1:(len(line) - 2)].split(',')
         # print(tmp1)
         tmp2 = [float(i) for i in tmp1]
-        print(tmp2)
+        # print(tmp2)
         priDeviations.append(tmp2)
