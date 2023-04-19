@@ -20,11 +20,11 @@ b = [2, 4, 5]
 
 def selectbest():
     for i in range(len(priPostures)):
-    #for i in range(1, 2):
+        # for i in range(1, 2):
         scores = list()
         tmp1 = list()  # A，L，alpha
         tmp2 = list()  # H，beta，gamma
-        print(priPostures[i])
+        # print(priPostures[i])
         for j in priPostures[i]:
             if j in a:
                 tmp1.append(j)
@@ -48,7 +48,7 @@ def selectbest():
                     score.append(it1[it2] / maxmin[tmp1[it2]])
                 scores.append(sum(score))
             Index = np.argmin(scores)
-            print(min(scores), Index)
+            # print(min(scores), Index)
             tmp = m[Index]
             tmp = np.array(tmp)
             tmp = tmp.reshape(1, -1)
