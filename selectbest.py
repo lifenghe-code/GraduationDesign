@@ -16,6 +16,8 @@ gamma -3 -- 3
 maxmin = [0.3, 0.055, 0.08, 8, 8, 6]
 a = [0, 1, 3]
 b = [2, 4, 5]
+evaluating_indicator0 = []
+evaluating_indicator1 = []
 
 
 def selectbest():
@@ -35,12 +37,13 @@ def selectbest():
         if m.size == 0:
             np.savetxt("./result/strategy1/pareto_fitness/pareto_fitness%d.txt" % i, [])
             np.savetxt("./result/strategy1/pareto_in/pareto_in%d.txt" % i, [])
+            evaluating_indicator0.append(0)
         elif m.size == 1:
-            m = m / maxmin[tmp1[0]]
             np.savetxt("./result/strategy1/pareto_fitness/pareto_fitness%d.txt" % i, [m])
             v = np.loadtxt('CompensationStrategy/strategy1/pareto_in/pareto_in%d.txt' % i)
             v = v.reshape(1, -1)
             np.savetxt("./result/strategy1/pareto_in/pareto_in%d.txt" % i, v)
+            evaluating_indicator0.append(m / maxmin[tmp1[0]])
         else:
             for it1 in m:
                 score = []
@@ -48,6 +51,7 @@ def selectbest():
                     score.append(it1[it2] / maxmin[tmp1[it2]])
                 scores.append(sum(score))
             Index = np.argmin(scores)
+            evaluating_indicator0.append(scores[Index])
             # print(min(scores), Index)
             tmp = m[Index]
             tmp = np.array(tmp)
@@ -62,12 +66,13 @@ def selectbest():
         if n.size == 0:
             np.savetxt("./result/strategy2/pareto_fitness/pareto_fitness%d.txt" % i, [])
             np.savetxt("./result/strategy2/pareto_in/pareto_in%d.txt" % i, [])
+            evaluating_indicator1.append(0)
         elif n.size == 1:
-            n = n / maxmin[tmp2[0]]
             np.savetxt("./result/strategy2/pareto_fitness/pareto_fitness%d.txt" % i, [n])
             v = np.loadtxt('CompensationStrategy/strategy2/pareto_in/pareto_in%d.txt' % i)
             v = v.reshape(1, -1)
             np.savetxt("./result/strategy2/pareto_in/pareto_in%d.txt" % i, v)
+            evaluating_indicator1.append(n / maxmin[tmp2[0]])
         else:
             for it1 in range(len(n)):
                 score = []
@@ -75,6 +80,7 @@ def selectbest():
                     score.append((n[it1][it2] / maxmin[tmp2[it2]]))
                 scores.append(sum(score))
             Index = np.argmin(scores)
+            evaluating_indicator1.append(scores[Index])
             tmp = n[Index]
             tmp = np.array(tmp)
             tmp = tmp.reshape(1, -1)
@@ -84,6 +90,10 @@ def selectbest():
             v = np.array(v)
             v = v.reshape(1, -1)
             np.savetxt("./result/strategy2/pareto_in/pareto_in%d.txt" % i, v)
+    print(len(evaluating_indicator0), len(evaluating_indicator1))
+    evaluating_indicator = [evaluating_indicator0[z] + evaluating_indicator1[z] for z in
+                            range(len(evaluating_indicator0))]
+    np.savetxt('evaluating_indicator.txt', evaluating_indicator)
 
 
 if __name__ == '__main__':
