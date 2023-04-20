@@ -30,10 +30,36 @@ for i in range(fileNum):
     inputs.append(c)
 # 将c中的内容写入xls文件中
 book = xlwt.Workbook(encoding='utf-8', style_compression=0)
-sheet = book.add_sheet('豆瓣电影Top250', cell_overwrite_ok=True)
+sheet = book.add_sheet('补偿略略', cell_overwrite_ok=True)
 col = ('lh', 'lv', 'lsh', 'lsu')
 for i in range(0, 4):
     sheet.write(0, i, col[i])
+for i in range(0, fileNum):
+    data = inputs[i]
+    for j in range(0, 4):
+        sheet.write(i + 1, j, data[j])
+savepath = './inputs.xls'
+book.save(savepath)
+
+fitness = []
+for i in range(fileNum):
+    c = []
+    a = np.loadtxt(filepath1 + '\\pareto_fitness%d.txt' % i)
+    b = np.loadtxt(filepath2 + '\\pareto_fitness%d.txt' % i)
+    if a.size == 0:
+        c.append(None)
+    else:
+        for j in a:
+            c.append(j)
+    if b.size == 0:
+        c.append(None)
+    else:
+        for j in b:
+            c.append(j)
+    inputs.append(c)
+# 将c中的内容写入xls文件中
+book = xlwt.Workbook(encoding='utf-8', style_compression=0)
+sheet = book.add_sheet('适应度', cell_overwrite_ok=True)
 for i in range(0, fileNum):
     data = inputs[i]
     for j in range(0, 4):
