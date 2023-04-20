@@ -1,7 +1,4 @@
 import numpy as np
-
-
-# A L H alpha beta gamma ---0 1 3
 def DataReduction(filename):
     data = np.loadtxt(filename)
     data = np.array(data, 'float32')
