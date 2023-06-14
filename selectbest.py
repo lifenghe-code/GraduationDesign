@@ -91,9 +91,7 @@ def selectbest():
             v = v.reshape(1, -1)
             np.savetxt("./result/strategy2/pareto_in/pareto_in%d.txt" % i, v)
     print(len(evaluating_indicator0), len(evaluating_indicator1))
-    evaluating_indicator = [evaluating_indicator0[z] + evaluating_indicator1[z] for z in
-                            range(len(evaluating_indicator0))]
-    np.savetxt('evaluating_indicator.txt', evaluating_indicator)
+
 
 
 if __name__ == '__main__':
