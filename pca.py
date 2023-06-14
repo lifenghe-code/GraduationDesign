@@ -1,4 +1,9 @@
 import numpy as np
+import warnings
+
+warnings.filterwarnings("ignore")
+
+
 def DataReduction(filename):
     data = np.loadtxt(filename)
     data = np.array(data, 'float32')
@@ -59,7 +64,8 @@ if __name__ == "__main__":
     for k in range(100):
         priPostures.append(DataReduction(filename % k)[0])
         priDeviations.append(DataReduction(filename % k)[1])
-    #priPostures = np.array(priPostures)
-    #priDeviations = np.array(priDeviations)
+        print("正在处理第%d条数据" % k)
+    # priPostures = np.array(priPostures)
+    # priDeviations = np.array(priDeviations)
     np.savetxt('./data/PriData/priPostures.txt', priPostures, fmt='%s')
     np.savetxt('./data/PriData/priDeviations.txt', priDeviations, fmt='%s')

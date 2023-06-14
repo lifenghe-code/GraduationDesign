@@ -4,7 +4,6 @@ import numpy as np
 import optimization
 
 
-# 这代码写的真是毫无逻辑，硅基生物看了都得吐
 def fitness_(in_, position_error, key):
     if key == 0:
         fit_0 = optimization.positionDeviations0(0, 0, in_[0], in_[1], position_error)

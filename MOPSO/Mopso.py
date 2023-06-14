@@ -58,7 +58,7 @@ class Mopso:
 
     def done(self, cycle_):
         self.initialize()
-        # self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, -1)
+        #self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, -1)
         for i in range(cycle_):
             self.update_()
             #self.plot_.show(self.in_, self.fitness_, self.archive_in, self.archive_fitness, i)

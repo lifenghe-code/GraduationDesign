@@ -19,8 +19,8 @@ class Plot_pareto:
         for i in range(self.m):
             for j in range(self.n):
                 [self.y1[i, j], self.y2[i, j], self.y3[i, j]] = fit.fitness_([self.x1[i, j], self.x2[i, j]])
-        if not os.path.exists('./img_txt'):
-            os.makedirs('./img_txt')
+        if not os.path.exists('./img'):
+            os.makedirs('./img')
             print('创建文件夹img_txt:保存粒子群每一次迭代的图片')
 
     def show(self, in_, fitness_, archive_in, archive_fitness, i):
@@ -28,29 +28,30 @@ class Plot_pareto:
         fig = plt.figure('第' + str(i + 1) + '次迭代', figsize=(15, 5))
         ################################################################
         ax1 = fig.add_subplot(131, projection='3d')
-        ax1.set_xlabel('input_x1')
-        ax1.set_ylabel('input_x2')
-        ax1.set_zlabel('fitness_y1')
+        ax1 = fig.add_subplot(132, projection='3d')
+        ax1.set_xlabel(r'$\Delta l_{h}$')
+        ax1.set_ylabel(r'$\Delta l_{v}$')
+        ax1.set_zlabel(r'$\Delta A$')
         ax1.plot_surface(self.x1, self.x2, self.y1, alpha=0.6)
         ax1.scatter(in_[:, 0], in_[:, 1], fitness_[:, 0], s=20, c='blue', marker=".")
         ax1.scatter(archive_in[:, 0], archive_in[:, 1], archive_fitness[:, 0], s=50, c='red', marker=".")
         #######################################################################
         ax2 = fig.add_subplot(132, projection='3d')
-        ax2.set_xlabel('input_x1')
-        ax2.set_ylabel('input_x2')
-        ax2.set_zlabel('fitness_y2')
+        ax2.set_xlabel(r'$\Delta l_{h}$')
+        ax2.set_ylabel(r'$\Delta l_{v}$')
+        ax2.set_zlabel(r'$\Delta L$')
         ax2.plot_surface(self.x1, self.x2, self.y2, alpha=0.6)
         ax2.scatter(in_[:, 0], in_[:, 1], fitness_[:, 1], s=20, c='blue', marker=".")
         ax2.scatter(archive_in[:, 0], archive_in[:, 1], archive_fitness[:, 1], s=50, c='red', marker=".")
         #######################################################################
         ax3 = fig.add_subplot(133, projection='3d')
-        ax3.set_xlabel('input_x1')
-        ax3.set_ylabel('input_x2')
-        ax3.set_zlabel('fitness_y3')
+        ax2.set_xlabel(r'$\Delta l_{h}$')
+        ax2.set_ylabel(r'$\Delta l_{v}$')
+        ax2.set_zlabel(r'$\Delta \alpha$')
         ax3.plot_surface(self.x1, self.x2, self.y3, alpha=0.6)
         ax3.scatter(in_[:, 0], in_[:, 1], fitness_[:, 2], s=20, c='blue', marker=".")
         ax3.scatter(archive_in[:, 0], archive_in[:, 1], archive_fitness[:, 2], s=50, c='red', marker=".")
         # plt.show()
-        plt.savefig('./img_txt/img/img' + str(i + 1) + '.png')
-        print('第' + str(i + 1) + '次迭代的图片保存于 img_txt 文件夹')
+        plt.savefig('./img/img_mpso/img_mpso' + str(i + 1) + '.png')
+        print('第' + str(i + 1) + '次迭代的图片保存于 img 文件夹')
         plt.close()

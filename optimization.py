@@ -1,5 +1,6 @@
 #  建立悬臂式掘进机的优化模型
 from position import *
+import matplotlib.pyplot as plt
 
 '''
 各个位姿参数的范围
@@ -109,8 +110,6 @@ def adjustTime(Delta_lsh=0, Delta_lsu=0, Delta_lh=0, Delta_lv=0):
 
 ###################################
 if __name__ == '__main__':
-    for i in np.arange(-0.5, 0.5, 0.001):
-        try:
-            print(cal_L(i, 0.01))
-        except:
-            print(1)
+    print(r'$\Delta$')
+plt.title('$\Delta$')
+plt.show()

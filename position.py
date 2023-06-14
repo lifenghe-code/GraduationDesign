@@ -58,7 +58,7 @@ def cal_gamma(lsu, lsh):
     gamma = ((40 * atan(Numerator / Denominator))+44.8)*10
     return gamma
 
-
+"""
 x1 = np.linspace(-0.5, 0.5, 100)
 x2 = np.linspace(-0.5, 0.5, 100)
 x1, x2 = np.meshgrid(x1, x2)  # 根据横纵坐标生成网格点
@@ -67,14 +67,7 @@ y1, y2 = np.zeros((m, n)), np.zeros((m, n))
 for i in range(m):
     for j in range(n):
         y1[i, j] = cal_A(x1[i, j], x2[i, j])
-'''
-fig = plt.figure()
-ax1 = fig.add_subplot(111, projection='3d')
-surf = ax1.plot_surface(x1, x2, y1, cmap=plt.cm.brg, alpha=0.6)
-cb = fig.colorbar(surf, shrink=0.8, aspect=15)  # 设置颜色棒
-plt.show()
-'''
-
+"""
 '''
 各个位姿参数的范围
 lh,lv的范围 -0.5 -- 0.5

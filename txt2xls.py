@@ -1,3 +1,4 @@
+# 利用Mpso算法得到的结果
 # 将最终生成的result中的各个txt文件合并，并生成xls文件，以便于后续使用
 import numpy as np
 import pandas as pd
@@ -38,7 +39,7 @@ for i in range(0, fileNum):
     data = inputs[i]
     for j in range(0, 4):
         sheet.write(i + 1, j, data[j])
-savepath = './inputs.xls'
+savepath = './inputs_mpso.xls'
 book.save(savepath)
 
 fitness = []
@@ -64,5 +65,5 @@ for i in range(0, fileNum):
     data = inputs[i]
     for j in range(0, 4):
         sheet.write(i + 1, j, data[j])
-savepath = './inputs.xls'
+savepath = './inputs_mpso.xls'
 book.save(savepath)

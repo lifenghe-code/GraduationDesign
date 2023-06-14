@@ -2,7 +2,7 @@ import numpy as np
 # coding=utf-8
 import matplotlib.pyplot as plt
 from position import *
-from commomdata import *
+from communaldata import *
 
 '''
 A -0.15 -- 0.15
